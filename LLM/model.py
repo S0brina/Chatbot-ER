@@ -46,8 +46,9 @@ def set_pipeline(model_name, hf_token, pipeline_type="text-generation", max_new_
     return text_generator
 
 def first_prompt(user_input, prompt_template=None):
+    usr_input = clean_text(user_input)
+    
     if prompt_template:
-        usr_input = clean_text(user_input)
         prompt = prompt_template.format(user_input=usr_input)
     else:
         prompt = (
@@ -155,7 +156,7 @@ def generate_proposal(generator, prompt, max_length=2000, temperature=0.8, top_k
     
     return software_proposal
 
-def generate_user_stories(generator, prompt, max_length=2000, temperature=0.65, top_k=50, top_p=0.9, max_new_tokens = 600):
+def generate_user_stories(generator, prompt, max_length=3000, temperature=0.65, top_k=50, top_p=0.9, max_new_tokens = 600):
     inputs = generator.tokenizer(prompt, return_tensors="pt", padding=True)
     input_ids = inputs['input_ids']
     attention_mask = inputs['attention_mask']
@@ -183,7 +184,7 @@ def chat_llm(
     prompt_template=None, 
     process_max_length=1500, process_temperature=0.55, process_top_k=40, process_top_p=0.8, process_max_new_tokens=500,
     proposal_max_length=2000, proposal_temperature=0.8, proposal_top_k=60, proposal_top_p=0.9, proposal_max_new_tokens=1000,
-    user_story_max_length=2000, user_story_temperature=0.65, user_story_top_k=50, user_story_top_p=0.9, user_stories_max_new_tokens=600
+    user_story_max_length=3000, user_story_temperature=0.65, user_story_top_k=50, user_story_top_p=0.9, user_stories_max_new_tokens=600
 ):
     print("------- Ejecutando chatbot, presionar enter para terminar sesión. --------")
   
@@ -235,7 +236,7 @@ def main(config_file, model_name, pipeline_type="text-generation", device="cpu",
     roposal_max_new_tokens=1000
 
     # Hiperparámetros específicos para generar historias de usuario (generate_user_stories)
-    user_story_max_length = 2000
+    user_story_max_length = 3000
     user_story_temperature = 0.65
     user_story_top_k = 50
     user_story_top_p = 0.9
