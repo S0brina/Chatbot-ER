@@ -1,0 +1,15 @@
+# Entornos virtuales
+venv/
+env/
+
+# Archivos de configuración
+*.env
+*.log
+
+# Archivos de compilación
+__pycache__/
+*.pyc
+*.pyo
+
+# Dependencias instaladas
+node_modules/
